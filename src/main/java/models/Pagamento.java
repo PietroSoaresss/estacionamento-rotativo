@@ -6,16 +6,20 @@ import java.time.LocalTime;
 public class Pagamento {
     private Estacionamento estacionamento;
     private Veiculo veiculo;
-    private String forma_pagamento;
+    private  FormaPagamento formaPagamento;
     private Double valor;
-    private LocalTime hora_pagamento;
+    private LocalTime horaPagamento;
 
 
-    public Pagamento(Estacionamento estacionamento, Veiculo veiculo, String forma_pagamento, Double valor) {
+    public Pagamento(Estacionamento estacionamento, Veiculo veiculo, FormaPagamento formaPagamento, Double valor) {
         this.estacionamento = estacionamento;
         this.veiculo = veiculo;
-        this.forma_pagamento = forma_pagamento;
+        this.formaPagamento = formaPagamento;
         this.valor = valor;
+    }
+
+    public void realizarPagamento() {
+        formaPagamento.pagar(valor);
     }
 
     public Estacionamento getEstacionamento() {
@@ -34,13 +38,9 @@ public class Pagamento {
         this.veiculo = veiculo;
     }
 
-    public String getForma_pagamento() {
-        return forma_pagamento;
-    }
+    public FormaPagamento getFormaPagamento() {return formaPagamento; }
 
-    public void setForma_pagamento(String forma_pagamento) {
-        this.forma_pagamento = forma_pagamento;
-    }
+    public void setFormaPagamento(FormaPagamento formaPagamento) {this.formaPagamento = formaPagamento; }
 
     public Double getValor() {
         return valor;

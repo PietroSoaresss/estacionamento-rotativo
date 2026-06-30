@@ -9,6 +9,7 @@ public class Estacionamento {
     public Estacionamento(int quantidade_vagas, String localizacao, int vagas_ocupadas, int valor_hora) {
         this.quantidade_vagas = quantidade_vagas;
         this.localizacao = localizacao;
+        this.vagas_ocupadas = vagas_ocupadas;
         this.valor_hora = valor_hora;
     }
 
@@ -35,4 +36,8 @@ public class Estacionamento {
     public void setVagas_ocupadas(int vagas_ocupadas) {
         this.vagas_ocupadas = vagas_ocupadas;
     }
+
+    public int getValor_hora() {return valor_hora; }
+
+    public void setValor_hora(int valor_hora) {this.valor_hora = valor_hora; }
 }

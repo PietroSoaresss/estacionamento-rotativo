@@ -2,7 +2,7 @@ package models;
 
 import java.time.LocalTime;
 
-public class Veiculo {
+public abstract class Veiculo {
 
     private String placa;
     private LocalTime horaEntrada;
@@ -12,6 +12,8 @@ public class Veiculo {
         this.placa = placa;
         this.horaEntrada = horaEntrada;
     }
+
+    public abstract int getVagasOcupadas();
 
     public String getPlaca() {
         return placa;
