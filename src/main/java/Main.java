@@ -18,6 +18,8 @@ public class Main {
         Pagamento pagamento = null;
 
         do{
+
+            //Menu de seleção das funções
             System.out.println("|=============================|");
             System.out.println("|===ESTACIONAMENTO ROTATIVO===|");
             System.out.println("|=============================|");
@@ -45,8 +47,9 @@ public class Main {
 
                     System.out.print("Valor da hora: ");
                     int valorHora = sc.nextInt();
-
+                    //Cria novo estacionamento usando o construtor da classe
                     estacionamento = new Estacionamento(qtdVagas, local, 0, valorHora);
+
 
                     System.out.println("Estacionamento cadastrado com sucesso!");
 
@@ -62,11 +65,15 @@ public class Main {
                     System.out.print("Placa do veículo: ");
                     String placaCarro = sc.nextLine();
 
+
+                    //Cria novo veiculo usando o construtor da classe carro
                     veiculo = new Carro(placaCarro, LocalTime.now());
 
+                    //Verifica se o estacionamento tem mais ou a mesma quantia de vagas que o veiculo necessita
                     if (estacionamento.getQuantidadeVagas() - estacionamento.getVagasOcupadas()
                             >= veiculo.getVagasOcupadas()) {
 
+                        // Define a quantia de vagas do estacionamento adicionando o veiculo atual
                         estacionamento.setVagasOcupadas(
                                 estacionamento.getVagasOcupadas() + veiculo.getVagasOcupadas());
 
@@ -89,14 +96,16 @@ public class Main {
                     System.out.print("Placa do veículo: ");
                     String placaMoto = sc.nextLine();
 
+                    //Cria novo estacionamento usando o construtor da classe moto
                     veiculo = new Moto(placaMoto, LocalTime.now());
 
+                    //Verifica se o estacionamento tem mais ou a mesma quantia de vagas que o veiculo necessita
                     if (estacionamento.getQuantidadeVagas() - estacionamento.getVagasOcupadas()
                             >= veiculo.getVagasOcupadas()) {
-
+                        // Define a quantia de vagas do estacionamento adicionando o veiculo atual
                         estacionamento.setVagasOcupadas(
                                 estacionamento.getVagasOcupadas() + veiculo.getVagasOcupadas());
-
+                        // Adiciona o veiculo no array de veiculos
                         veiculos.add(veiculo);
                         System.out.println("Veículo entrou às " + veiculo.getHoraEntrada());
 
@@ -117,7 +126,7 @@ public class Main {
                     String placa = sc.nextLine();
 
                     Veiculo veiculoEncontrado = null;
-
+                    // Lista veiculos no estacionamento
                     for (Veiculo v : veiculos) {
                         if (v.getPlaca().equalsIgnoreCase(placa)) {
                             veiculoEncontrado = v;
@@ -129,7 +138,7 @@ public class Main {
                         break;
                     }
 
-
+                    // Define hora da saída
                     veiculoEncontrado.setHoraSaida(LocalTime.now());
                     System.out.println("Hora de saída: " + veiculoEncontrado.getHoraSaida());
 
@@ -143,6 +152,7 @@ public class Main {
 
                     FormaPagamento formaPagamento = null;
 
+                    // Instancia a classe do metodo do pagamento mostrando mensagem personalizada
                     switch (opcaoPagamento) {
                         case 1:
                             formaPagamento = new Pix();
@@ -165,6 +175,7 @@ public class Main {
                         break;
                     }
 
+                    // Calcula tempo do veiculo no estacionamento
                     Duration tempo = Duration.between(
                             veiculoEncontrado.getHoraEntrada(),
                             veiculoEncontrado.getHoraSaida()
@@ -177,12 +188,13 @@ public class Main {
                     if (horas == 0) {
                         horas = 1;
                     }
-
+                    // Calcula o valor do pagamento
                     double valor = horas * estacionamento.getValorHora();
 
                     System.out.println("Tempo estacionado: " + horas + " hora(s)");
                     System.out.println("Valor a pagar: R$ " + valor);
 
+                    // Instancia classe pagamento
                     pagamento = new Pagamento(
                             estacionamento,
                             veiculoEncontrado,
@@ -192,6 +204,7 @@ public class Main {
 
                     pagamento.realizarPagamento();
 
+                    // Remove veiculo do estacionamento
                     estacionamento.setVagasOcupadas(
                             estacionamento.getVagasOcupadas() - veiculoEncontrado.getVagasOcupadas());
 
@@ -210,10 +223,18 @@ public class Main {
 
                     System.out.println("\n===== VEÍCULOS ESTACIONADOS =====");
 
+
                     for (Veiculo v : veiculos) {
+                        //Calcula tempo no estacionamento
+                        Duration duracao = Duration.between(v.getHoraEntrada(), LocalTime.now());
+                        horas = duracao.toHours();
+                        minutos = duracao.toMinutesPart();
+                        long segundos = duracao.toSeconds();
+
                         System.out.println("Placa: " + v.getPlaca());
                         System.out.println("Tipo: " + v.getTipo());
                         System.out.println("Entrada: " + v.getHoraEntrada());
+                        System.out.println("Tempo no estacionamento: " + horas +":" + minutos +":"+ segundos);
                         System.out.println("Ocupa: " + v.getVagasOcupadas() + " vaga(s)");
                         System.out.println("----------------------------");
                     }
