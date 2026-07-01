@@ -16,6 +16,7 @@ public class Pagamento {
         this.veiculo = veiculo;
         this.formaPagamento = formaPagamento;
         this.valor = valor;
+        this.horaPagamento = LocalTime.now();
     }
 
     public void realizarPagamento() {
@@ -48,5 +49,9 @@ public class Pagamento {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public LocalTime getHoraPagamento() {
+        return horaPagamento;
     }
 }

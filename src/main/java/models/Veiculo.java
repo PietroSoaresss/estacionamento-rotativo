@@ -13,6 +13,8 @@ public abstract class Veiculo {
         this.horaEntrada = horaEntrada;
     }
 
+    public abstract String getTipo();
+
     public abstract int getVagasOcupadas();
 
     public String getPlaca() {

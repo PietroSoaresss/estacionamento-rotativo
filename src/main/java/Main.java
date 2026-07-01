@@ -1,6 +1,7 @@
 import models.*;
 
 import java.sql.SQLOutput;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,7 +26,8 @@ public class Main {
             System.out.println("1 - cadastro de estacionamento");
             System.out.println("2 - entrar com carro no estacionamento");
             System.out.println("3 - entrar com moto no estacionamento");
-            System.out.println("4 - pagamento");
+            System.out.println("4 - pagamento e saida");
+            System.out.println("5 - exibir veiculos");
             System.out.println("0 - encerrar programa");
             System.out.print("Escolha uma opção: ");
 
@@ -62,11 +64,11 @@ public class Main {
 
                     veiculo = new Carro(placaCarro, LocalTime.now());
 
-                    if (estacionamento.getQuantidade_vagas() - estacionamento.getVagas_ocupadas()
+                    if (estacionamento.getQuantidadeVagas() - estacionamento.getVagasOcupadas()
                             >= veiculo.getVagasOcupadas()) {
 
-                        estacionamento.setVagas_ocupadas(
-                                estacionamento.getVagas_ocupadas() + veiculo.getVagasOcupadas());
+                        estacionamento.setVagasOcupadas(
+                                estacionamento.getVagasOcupadas() + veiculo.getVagasOcupadas());
 
                         veiculos.add(veiculo);
                         System.out.println("Veículo entrou às " + veiculo.getHoraEntrada());
@@ -89,11 +91,11 @@ public class Main {
 
                     veiculo = new Moto(placaMoto, LocalTime.now());
 
-                    if (estacionamento.getQuantidade_vagas() - estacionamento.getVagas_ocupadas()
+                    if (estacionamento.getQuantidadeVagas() - estacionamento.getVagasOcupadas()
                             >= veiculo.getVagasOcupadas()) {
 
-                        estacionamento.setVagas_ocupadas(
-                                estacionamento.getVagas_ocupadas() + veiculo.getVagasOcupadas());
+                        estacionamento.setVagasOcupadas(
+                                estacionamento.getVagasOcupadas() + veiculo.getVagasOcupadas());
 
                         veiculos.add(veiculo);
                         System.out.println("Veículo entrou às " + veiculo.getHoraEntrada());
@@ -163,8 +165,23 @@ public class Main {
                         break;
                     }
 
-                    // Exemplo simples: cobra apenas 1 hora
-                    double valor = 10.0;
+                    Duration tempo = Duration.between(
+                            veiculoEncontrado.getHoraEntrada(),
+                            veiculoEncontrado.getHoraSaida()
+                    );
+
+                    long minutos = tempo.toMinutes();
+
+                    long horas = (long) Math.ceil(minutos / 60.0);
+
+                    if (horas == 0) {
+                        horas = 1;
+                    }
+
+                    double valor = horas * estacionamento.getValorHora();
+
+                    System.out.println("Tempo estacionado: " + horas + " hora(s)");
+                    System.out.println("Valor a pagar: R$ " + valor);
 
                     pagamento = new Pagamento(
                             estacionamento,
@@ -174,6 +191,33 @@ public class Main {
                     );
 
                     pagamento.realizarPagamento();
+
+                    estacionamento.setVagasOcupadas(
+                            estacionamento.getVagasOcupadas() - veiculoEncontrado.getVagasOcupadas());
+
+                    veiculos.remove(veiculoEncontrado);
+
+                    System.out.println("Veículo saiu do estacionamento.");
+
+                    break;
+
+                case 5:
+
+                    if (veiculos.isEmpty()) {
+                        System.out.println("Não há veículos estacionados.");
+                        break;
+                    }
+
+                    System.out.println("\n===== VEÍCULOS ESTACIONADOS =====");
+
+                    for (Veiculo v : veiculos) {
+                        System.out.println("Placa: " + v.getPlaca());
+                        System.out.println("Tipo: " + v.getTipo());
+                        System.out.println("Entrada: " + v.getHoraEntrada());
+                        System.out.println("Ocupa: " + v.getVagasOcupadas() + " vaga(s)");
+                        System.out.println("----------------------------");
+                    }
+                    System.out.println("Vagas livres: " + (estacionamento.getQuantidadeVagas() - estacionamento.getVagasOcupadas() ) );
 
                     break;
 

@@ -1,24 +1,24 @@
 package models;
 
 public class Estacionamento {
-    private int quantidade_vagas;
+    private int quantidadeVagas;
     private String localizacao;
-    private int vagas_ocupadas;
-    private int valor_hora;
+    private int vagasOcupadas;
+    private int valorHora;
 
-    public Estacionamento(int quantidade_vagas, String localizacao, int vagas_ocupadas, int valor_hora) {
-        this.quantidade_vagas = quantidade_vagas;
+    public Estacionamento(int quantidadeVagas, String localizacao, int vagasOcupadas, int valorHora) {
+        this.quantidadeVagas = quantidadeVagas;
         this.localizacao = localizacao;
-        this.vagas_ocupadas = vagas_ocupadas;
-        this.valor_hora = valor_hora;
+        this.vagasOcupadas = vagasOcupadas;
+        this.valorHora = valorHora;
     }
 
-    public int getQuantidade_vagas() {
-        return quantidade_vagas;
+    public int getQuantidadeVagas() {
+        return quantidadeVagas;
     }
 
-    public void setQuantidade_vagas(int quantidade_vagas) {
-        this.quantidade_vagas = quantidade_vagas;
+    public void setQuantidadeVagas(int quantidadeVagas) {
+        this.quantidadeVagas = quantidadeVagas;
     }
 
     public String getLocalizacao() {
@@ -29,15 +29,13 @@ public class Estacionamento {
         this.localizacao = localizacao;
     }
 
-    public int getVagas_ocupadas() {
-        return vagas_ocupadas;
+    public int getVagasOcupadas() {return vagasOcupadas; }
+
+    public void setVagasOcupadas(int vagasOcupadas) {
+        this.vagasOcupadas = vagasOcupadas;
     }
 
-    public void setVagas_ocupadas(int vagas_ocupadas) {
-        this.vagas_ocupadas = vagas_ocupadas;
-    }
+    public int getValorHora() {return valorHora; }
 
-    public int getValor_hora() {return valor_hora; }
-
-    public void setValor_hora(int valor_hora) {this.valor_hora = valor_hora; }
+    public void setValorHora(int valorHora) {this.valorHora = valorHora; }
 }

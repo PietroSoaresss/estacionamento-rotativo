@@ -8,6 +8,11 @@ import java.time.LocalTime;
     }
 
     @Override
+    public String getTipo() {
+        return "Moto";
+    }
+
+    @Override
     public int getVagasOcupadas() {
         return 1;
     }
