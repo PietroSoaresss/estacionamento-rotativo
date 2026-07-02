@@ -96,7 +96,7 @@ public class Main {
                     System.out.print("Placa do veículo: ");
                     String placaMoto = sc.nextLine();
 
-                    //Cria novo estacionamento usando o construtor da classe moto
+                    //Cria novo veiculo usando o construtor da classe moto
                     veiculo = new Moto(placaMoto, LocalTime.now());
 
                     //Verifica se o estacionamento tem mais ou a mesma quantia de vagas que o veiculo necessita
